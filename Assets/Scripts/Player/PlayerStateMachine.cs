@@ -1,149 +1,94 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    private State _activeState;
-    private Inputs _currentInput;
+    private int _stackPointer;
+    public static State currentState;
+    private State[] _stateStack;
 
-    private enum State
+    public enum State
     {
         Idle, 
-        MoveLeft, 
-        MoveRight,
-        Crouch, 
-        SneakLeft,
-        SneakRight,
-        Jump, 
-        RunLeft,
-        RunRight
+        Walking,
+        Crouching, 
+        Sneaking,
+        NotGrounded, 
+        Running,
     }
 
-    private enum Inputs
+    public enum Inputs
     {
-        Down = KeyCode.S, 
-        Left = KeyCode.A,
-        Right = KeyCode.D,
-        Space = KeyCode.Space, 
-        Shift = KeyCode.LeftShift, 
-        Release = KeyCode.None
+        Down,
+        Move,
+        Space, 
+        Shift, 
+        Release
     }
 
-    void Start()
+    private void Start()
     {
-        _activeState = State.Idle;
+        _stateStack = new State[4];
+        currentState = State.Idle;
+        Push(currentState);
     }
 
-    void GetInputs()
+    public void SetNewState(Inputs newInput)
     {
-        if (Input.GetKey("S"))
+        switch (newInput)
         {
-            _currentInput = Inputs.Down;
-            HandleInput(_currentInput);
-        }
-        if (Input.GetKey("A"))
-        {
-            _currentInput = Inputs.Left;
-            HandleInput(_currentInput);
-        }
-        if (Input.GetKey("D"))
-        {
-            _currentInput = Inputs.Right;
-            HandleInput(_currentInput);
-        }
-        if (Input.GetKey("LeftShift"))
-        {
-            _currentInput = Inputs.Shift;
-            HandleInput(_currentInput);
-        }
-
-        // todo handle keyUp
-        
-        if (Input.GetKey("Space"))
-        {
-            _currentInput = Inputs.Space;
-            HandleInput(_currentInput);
-        }
-    }
-
-    private void Update()
-    {
-     //   HandleInput();
-    }
-
-    void HandleInput(Inputs inputs)
-    {
-        // if-checks på input here
-        
-        switch (_activeState)
-        {
-            case State.Idle:
-                if (inputs == Inputs.Down)
-                {
-                    _activeState = State.Crouch;
+            case Inputs.Move:
+                switch (currentState)
+                { 
+                    case State.Idle: currentState = State.Walking; break;
+                    case State.Crouching: currentState = State.Sneaking; break;
                 }
-                else if (inputs == Inputs.Left)
-                {
-                    _activeState = State.MoveLeft;
-                }
-                else if (inputs == Inputs.Right)
-                {
-                    _activeState = State.MoveRight;
-                }
-                
+                Push(currentState);
                 break;
-            
-            case State.MoveLeft:
-                if (inputs == Inputs.Shift)
+            case Inputs.Down:
+                switch (currentState)
                 {
-                    _activeState = State.RunLeft;
+                    case State.Idle: currentState = State.Crouching; break;
+                    case State.Running: currentState = State.Sneaking; break;
                 }
-                
-                else if (inputs == Inputs.Space)
-                {
-                    _activeState = State.Jump;
-                    // you don't need to change the state, just insert the jump method call here.
-                }
-
-                else if (inputs == Inputs.Release)
-                {
-                    _activeState = State.Idle;
-                }
-
+                Push(currentState);
                 break;
-            
-            case State.MoveRight:
-                if (inputs == Inputs.Shift)
+            case Inputs.Space:
+                switch (currentState)
                 {
-                    _activeState = State.RunRight;
+                    case State.Crouching: break;
+                    default: currentState = State.NotGrounded; break;
                 }
-                
-                else if (inputs == Inputs.Space)
-                {
-                    _activeState = State.Jump;
-                    // you don't need to change the state, just insert the jump method call here.
-                }
-
-                else if (inputs == Inputs.Release)
-                {
-                    _activeState = State.Idle;
-                }
-
+                Push(currentState);
                 break;
-            
-            case State.Crouch:
-                if (inputs == Inputs.Left)
+            case Inputs.Shift:
+                switch (currentState)
+                { 
+                    case State.Walking: currentState = State.Running; break;
+                } 
+                Push(currentState);
+                break;
+            case Inputs.Release:
+                switch (currentState)
                 {
-                    _activeState = State.SneakLeft;
+                    default: currentState = Pop(); break;
                 }
-                else if (inputs == Inputs.Right)
-                {
-                    _activeState = State.SneakRight;
-                }
-
                 break;
         }
+    }
+
+    private void Push(State state)
+    {
+        _stateStack[_stackPointer] = state;
+        _stackPointer++;
+    }
+
+    private State Pop()
+    {
+        _stackPointer--;
+        return _stateStack[_stackPointer];
     }
 }
