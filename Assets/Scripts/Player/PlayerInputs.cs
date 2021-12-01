@@ -1,38 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputs : MonoBehaviour
+public struct PlayerInputs
 {
-    private PlayerStateMachine _psm;
-
-    private void Awake()
+    public Inputs GetKeys(Inputs currentInput)
     {
-        _psm = GetComponent<PlayerStateMachine>();
-    }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            return Inputs.Ctrl;
+        }
+        
+        // todo space => jump
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            return Inputs.Shift;
+        }
+        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            return Inputs.Move;
+        }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
-        {
-            _psm.SetNewState(PlayerStateMachine.Inputs.Move);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            _psm.SetNewState(PlayerStateMachine.Inputs.Down);
-        }
-        
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
-        
-        else if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            _psm.SetNewState(PlayerStateMachine.Inputs.Shift);
-        }
-        
+        return currentInput;
         // todo GetKeyUp => Input.Release
     }
 }
+
+
