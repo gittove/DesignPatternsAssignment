@@ -4,6 +4,12 @@ public struct PlayerInputs
 {
     public Inputs GetKeys(Inputs currentInput)
     {
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.W)
+            || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
+        {
+            return Inputs.Release;
+        }
+        
         if (Input.GetKey(KeyCode.LeftControl))
         {
             return Inputs.Ctrl;
@@ -22,7 +28,6 @@ public struct PlayerInputs
         }
 
         return currentInput;
-        // todo GetKeyUp => Input.Release
     }
 }
 

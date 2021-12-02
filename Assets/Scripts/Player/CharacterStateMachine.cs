@@ -7,10 +7,12 @@ public class CharacterStateMachine
     
     private int _stackPointer;
     private State[] _stateStack;
+    private PlayerController _characterController;
 
-    public CharacterStateMachine()
+    public CharacterStateMachine(PlayerController playerController)
     {
-        _stateStack = new State[2];
+        _characterController = playerController;
+        _stateStack = new State[3];
         currentState = State.Idle;
         Push(currentState);
     }
@@ -30,6 +32,7 @@ public class CharacterStateMachine
     private void OnInputChanged()
     {
         SetNewState(currentInput);
+        _characterController.currentState = currentState;
     }
 
     public void SetNewState(Inputs newInput)

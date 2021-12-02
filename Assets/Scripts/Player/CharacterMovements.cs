@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public struct CharacterMovement
+public struct CharacterMovements
 {
     private float _walkAcceleration;
     private float _runningAcceleration;
@@ -14,7 +14,7 @@ public struct CharacterMovement
     private Vector3 _currentVelocity;
     private Rigidbody _rb;
 
-    public CharacterMovement(Rigidbody rigidbody, float[] movementValues)
+    public CharacterMovements(Rigidbody rigidbody, float[] movementValues)
     {
         _currentDirection = new Vector3(0, 0, 0);
         _currentVelocity = new Vector3(0, 0, 0);
