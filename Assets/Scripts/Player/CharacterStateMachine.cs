@@ -1,20 +1,20 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CharacterStateMachine
 {
     public Inputs currentInput;
     public State currentState;
     
-    private int _stackPointer;
-    private State[] _stateStack;
+    private Stack <State> _stateStack;
     private PlayerController _characterController;
 
     public CharacterStateMachine(PlayerController playerController)
     {
         _characterController = playerController;
-        _stateStack = new State[3];
+        _stateStack = new Stack<State>();
         currentState = State.Idle;
-        Push(currentState);
+        _stateStack.Push(currentState);
     }
     
     public Inputs CurrentInput
@@ -50,7 +50,7 @@ public class CharacterStateMachine
                         break;
                 }
 
-                Push(currentState);
+                _stateStack.Push(currentState);
                 break;
             case Inputs.Ctrl:
                 switch (currentState)
@@ -63,7 +63,7 @@ public class CharacterStateMachine
                         break;
                 }
 
-                Push(currentState);
+                _stateStack.Push(currentState);
                 break;
             case Inputs.Space:
                 switch (currentState)
@@ -74,7 +74,7 @@ public class CharacterStateMachine
                         break;
                 }
 
-                Push(currentState);
+                _stateStack.Push(currentState);
                 break;
             case Inputs.Shift:
                 switch (currentState)
@@ -84,28 +84,19 @@ public class CharacterStateMachine
                         break;
                 }
 
-                Push(currentState);
+                _stateStack.Push(currentState);
                 break;
             case Inputs.Release:
                 switch (currentState)
                 {
+                    case State.Idle:
+                        break;
                     default:
-                        currentState = Pop();
+                        _stateStack.Pop();
+                        currentState = _stateStack.Peek();
                         break;
                 }
                 break;
         }
-    }
-
-    private void Push(State state)
-    {
-        _stateStack[_stackPointer] = state;
-        _stackPointer++;
-    }
-
-    private State Pop()
-    {
-        _stackPointer--;
-        return _stateStack[_stackPointer];
     }
 }

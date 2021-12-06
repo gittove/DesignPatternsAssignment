@@ -408,12 +408,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54c97b430e055042a2309704a67c30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkAcceleration: 4.9
-  _runningAcceleration: 6.76
+  currentState: 0
+  _walkAcceleration: 3.52
+  _runningAcceleration: 5.63
   _sneakAcceleration: 2.69
   _jumpAcceleration: 5.65
-  _maxWalkSpeed: 10
-  _maxRunningSpeed: 15
+  _maxWalkSpeed: 7.74
+  _maxRunningSpeed: 10.48
   _maxSneakingSpeed: 6
   _maxJumpHeight: 8
 --- !u!54 &1162066729

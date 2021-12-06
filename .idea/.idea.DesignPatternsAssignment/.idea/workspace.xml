@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="aa6fbbef-0c8e-4892-b2be-d19e51d4f5eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovements.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovements.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerProfile.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +50,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -67,10 +64,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7528">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="7796">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="7528" />
+      <option name="pid" value="7796" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -90,7 +87,9 @@
       <workItem from="1638177848726" duration="6936000" />
       <workItem from="1638275339965" duration="12849000" />
       <workItem from="1638360015728" duration="14243000" />
-      <workItem from="1638448035238" duration="5066000" />
+      <workItem from="1638448035238" duration="5933000" />
+      <workItem from="1638794883426" duration="3203000" />
+      <workItem from="1638798132229" duration="950000" />
     </task>
     <servers />
   </component>
@@ -120,17 +119,30 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs</url>
-          <line>46</line>
-          <properties documentPath="C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\DesignPatternsAssignment\Assets\Scripts\Player\PlayerController.cs" initialLine="46" containingFunctionPresentation="method 'FixedUpdate'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs</url>
+          <line>65</line>
+          <properties documentPath="C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\DesignPatternsAssignment\Assets\Scripts\Player\CharacterStateMachine.cs" initialLine="65" containingFunctionPresentation="method 'SetNewState'">
             <startOffsets>
-              <option value="1608" />
+              <option value="1750" />
             </startOffsets>
             <endOffsets>
-              <option value="1629" />
+              <option value="1781" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs</url>
+          <line>86</line>
+          <properties documentPath="C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\DesignPatternsAssignment\Assets\Scripts\Player\CharacterStateMachine.cs" initialLine="86" containingFunctionPresentation="method 'SetNewState'">
+            <startOffsets>
+              <option value="2396" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2427" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
