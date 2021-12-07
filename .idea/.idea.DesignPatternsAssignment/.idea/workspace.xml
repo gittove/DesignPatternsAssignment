@@ -7,8 +7,6 @@
     <list default="true" id="aa6fbbef-0c8e-4892-b2be-d19e51d4f5eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovements.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovements.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +88,7 @@
       <workItem from="1638448035238" duration="5933000" />
       <workItem from="1638794883426" duration="3203000" />
       <workItem from="1638798132229" duration="1928000" />
-      <workItem from="1638882434808" duration="1632000" />
+      <workItem from="1638882434808" duration="2624000" />
     </task>
     <servers />
   </component>

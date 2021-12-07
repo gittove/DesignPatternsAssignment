@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 1162066730}
   - component: {fileID: 1162066729}
   - component: {fileID: 1162066726}
+  - component: {fileID: 1162066727}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -417,6 +418,22 @@ MonoBehaviour:
   _maxRunningSpeed: 8.61
   _maxSneakingSpeed: 6
   _maxJumpHeight: 8
+--- !u!111 &1162066727
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162066725}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 3ade79ed05de4dd4088e80053dfd36e6, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!54 &1162066729
 Rigidbody:
   m_ObjectHideFlags: 0
