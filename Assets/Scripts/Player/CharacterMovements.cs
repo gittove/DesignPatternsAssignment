@@ -51,7 +51,8 @@ public struct CharacterMovements
     {
         _currentDirection.x = Input.GetAxisRaw("Horizontal");
         _currentDirection.z = Input.GetAxisRaw("Vertical");
-        _currentVelocity = new Vector3(_rb.velocity.x, _rb.velocity.z, 0);
+        _currentVelocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _maxRunningSpeed), 0, 
+            Mathf.Clamp(_rb.velocity.z, 0, _maxRunningSpeed));
 
         if (_currentVelocity.x < _maxRunningSpeed || _currentVelocity.z < _maxRunningSpeed)
         {

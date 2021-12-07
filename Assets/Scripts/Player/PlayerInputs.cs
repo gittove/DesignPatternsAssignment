@@ -10,10 +10,7 @@ public struct PlayerInputs
         }
         
         // todo space => jump
-        
-        // if u press wasd, then shift, then hold wasd and shift again, currentInput keeps changing and states keeps adding to stack
-        //that is problem. ok thanks
-        
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             return Inputs.Shift;

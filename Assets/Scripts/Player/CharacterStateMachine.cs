@@ -44,26 +44,32 @@ public class CharacterStateMachine
                 {
                     case State.Idle:
                         currentState = State.Walking;
+                        _stateStack.Push(currentState);
                         break;
                     case State.Crouching:
                         currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
-                _stateStack.Push(currentState);
                 break;
             case Inputs.Ctrl:
                 switch (currentState)
                 {
                     case State.Idle:
                         currentState = State.Crouching;
+                        _stateStack.Push(currentState);
+                        break;
+                    case State.Walking:
+                        currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                     case State.Running:
                         currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
-                _stateStack.Push(currentState);
                 break;
             case Inputs.Space:
                 switch (currentState)
@@ -71,20 +77,20 @@ public class CharacterStateMachine
                     case State.Crouching: break;
                     default:
                         currentState = State.NotGrounded;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
-                _stateStack.Push(currentState);
                 break;
             case Inputs.Shift:
                 switch (currentState)
                 {
                     case State.Walking:
                         currentState = State.Running;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
-                _stateStack.Push(currentState);
                 break;
             case Inputs.Release:
                 switch (currentState)

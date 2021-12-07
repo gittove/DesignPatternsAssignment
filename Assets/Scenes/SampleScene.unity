@@ -414,7 +414,7 @@ MonoBehaviour:
   _sneakAcceleration: 2.69
   _jumpAcceleration: 5.65
   _maxWalkSpeed: 7.74
-  _maxRunningSpeed: 10.48
+  _maxRunningSpeed: 8.61
   _maxSneakingSpeed: 6
   _maxJumpHeight: 8
 --- !u!54 &1162066729
