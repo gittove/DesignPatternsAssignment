@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 308886252}
   - component: {fileID: 308886251}
   - component: {fileID: 308886250}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40a40c588e6c9943a63ad0dfc6837fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolSize: 75
-  _BulletPrefab: {fileID: 263204936261568684, guid: 30eb1b7f50bd22640950af21ac23b056, type: 3}
+  _poolSize: 18
+  _objectPrefab: {fileID: 263204936261568684, guid: 30eb1b7f50bd22640950af21ac23b056, type: 3}
 --- !u!4 &503696989
 Transform:
   m_ObjectHideFlags: 0
@@ -453,7 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54c97b430e055042a2309704a67c30e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPlayerState: 0
   _walkAcceleration: 3.52
   _runningAcceleration: 5.63
   _sneakAcceleration: 2.69
@@ -461,7 +460,9 @@ MonoBehaviour:
   _maxWalkSpeed: 7.74
   _maxRunningSpeed: 8.61
   _maxSneakingSpeed: 6
-  _maxJumpHeight: 8
+  _groundLayers:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!54 &1162066729
 Rigidbody:
   m_ObjectHideFlags: 0

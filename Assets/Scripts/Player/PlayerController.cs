@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    public State currentPlayerState;
 
     [SerializeField] [Range(0, 10)] private float _walkAcceleration;
     [SerializeField] [Range(0, 10)] private float _runningAcceleration;
@@ -15,43 +15,77 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float _maxWalkSpeed;
     [SerializeField] [Range(0, 20)] private float _maxRunningSpeed;
     [SerializeField] [Range(0, 20)] private float _maxSneakingSpeed;
-    [SerializeField] [Range(0, 20)] private float _maxJumpHeight;
 
     private float _shootTimer;
+    private float _groundCheckTimer;
+    private float _groundCheckDelay;
     private bool _isShooting;
+    private bool _justJumped;
+    private State _currentPlayerState;
     private CharacterStateMachine _stateMachine;
     private CharacterMovements _characterMovements;
     private PlayerInputs _playerInputs;
     private Rigidbody _rbody;
     private MeshRenderer _renderer;
+    private CapsuleCollider _collider;
     private float[] movementValues;
+
+    [SerializeField] LayerMask _groundLayers;
+
+    public State CurrentPlayerState
+    {
+        set
+        {
+            if (value != this._currentPlayerState)
+            {
+                this._currentPlayerState = value;
+                OnStateChanged();
+            }
+        }
+    }
 
     void Awake()
     {
-        movementValues = new float[8]
+        movementValues = new float[7]
         {
             _walkAcceleration, _maxWalkSpeed, _runningAcceleration, _maxRunningSpeed, _sneakAcceleration,
-            _maxSneakingSpeed, _jumpAcceleration, _maxJumpHeight
+            _maxSneakingSpeed, _jumpAcceleration
         };
 
         _shootTimer = 0f;
+        _groundCheckTimer = 0f;
+        _groundCheckDelay = 0.1f;
+        _justJumped = false;
         _rbody = GetComponent<Rigidbody>();
         _renderer = GetComponent<MeshRenderer>();
-        _stateMachine = new CharacterStateMachine(this);
+        _collider = GetComponent<CapsuleCollider>();
+        _stateMachine = new CharacterStateMachine(this, _rbody);
         _playerInputs = new PlayerInputs();
         _characterMovements = new CharacterMovements(_rbody, movementValues);
     }
 
     private void Update()
     {
-        _stateMachine.CurrentInput = _playerInputs.GetKeys(_stateMachine.currentInput);
+        _stateMachine.CurrentInput = _playerInputs.GetKeys(_stateMachine.currentInput, _currentPlayerState);
         _isShooting = _playerInputs.GetClick();
         _shootTimer += Time.deltaTime;
+
+        
+        if (_justJumped)
+        {
+            _groundCheckTimer += Time.deltaTime;
+            if (_groundCheckTimer > _groundCheckDelay)
+            {
+                _justJumped = false;
+                _groundCheckTimer = 0.0f;
+            }
+        }
+
     }
 
     private void FixedUpdate()
     {
-        switch (currentPlayerState)
+        switch (_currentPlayerState)
         {
             case State.Idle: _renderer.material.SetColor("_Color", Color.white);
                 break;
@@ -70,9 +104,42 @@ public class PlayerController : MonoBehaviour
 
         if (_isShooting && _shootTimer > 0.3f)
         {
-            GameObject go = BulletPool.instance.ObjectPoolSpawn();
+            GameObject go = ObjectPool.instance.ObjectPoolSpawn();
             go.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z + 1);
             _shootTimer = 0f;
+        }
+        if(!_justJumped)
+            GroundCheck();
+        
+    }
+
+    private void GroundCheck()
+    {
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * _collider.height * 0.5f, Color.black);
+
+        if (Physics.Raycast(transform.position, Vector3.down, _collider.height * 0.5f, _groundLayers))
+        {
+            if (_currentPlayerState == State.Jumping)
+            {
+                Debug.Log("bonk");
+                _stateMachine.ReturnToPreviousState();
+            }
+        }
+    }
+
+
+    
+
+    void OnStateChanged()
+    {
+        if (_currentPlayerState == State.Jumping)
+        {
+            Debug.Log("boing");
+            _renderer.material.SetColor("_Color",Color.red);
+            _characterMovements.Jump();
+            _justJumped = true;
+            Invoke("asdf", 0.1f);
+            
         }
     }
 }

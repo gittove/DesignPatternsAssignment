@@ -5,7 +5,7 @@ public enum State
     Walking,
     Crouching,
     Sneaking,
-    NotGrounded,
+    Jumping,
     Running,
 }
 

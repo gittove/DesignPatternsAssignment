@@ -10,7 +10,7 @@ public class BulletBehavior : MonoBehaviour
     private float _destroyQueue;
     private bool _isVisible;
     private Rigidbody _rb;
-    [SerializeField] private BulletPool parentBulletPool;
+    [SerializeField] private ObjectPool parentObjectPool;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class BulletBehavior : MonoBehaviour
         if (_lifeTimer > _destroyQueue)
         {
             _isVisible = false;
-            BulletPool.instance.ObjectPoolReturn(this.gameObject);
+            ObjectPool.instance.ObjectPoolReturn(this.gameObject);
         }
     }
 

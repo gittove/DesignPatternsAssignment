@@ -5,11 +5,10 @@ public struct CharacterMovements
     private float _walkAcceleration;
     private float _runningAcceleration;
     private float _sneakAcceleration;
-    private float _jumpAcceleration;
+    private float _jumpForce;
     private float _maxWalkSpeed;
     private float _maxRunningSpeed;
     private float _maxSneakingSpeed;
-    private float _maxJumpHeight;
     private Vector3 _currentDirection;
     private Vector3 _currentVelocity;
     private Rigidbody _rb;
@@ -25,8 +24,7 @@ public struct CharacterMovements
         _maxRunningSpeed = movementValues[3];
         _sneakAcceleration = movementValues[4];
         _maxSneakingSpeed = movementValues[5];
-        _jumpAcceleration = movementValues[6];
-        _maxJumpHeight = movementValues[7];
+        _jumpForce = movementValues[6];
 
         _rb = rigidbody;
     }
@@ -63,6 +61,11 @@ public struct CharacterMovements
         _rb.velocity = _currentVelocity;
     }
 
+    public void Jump()
+    {
+        _rb.AddForce(0, _jumpForce, 0, ForceMode.Impulse);
+    }
+    
     public void Sneak()
     {
         _currentDirection.x = Input.GetAxisRaw("Horizontal");

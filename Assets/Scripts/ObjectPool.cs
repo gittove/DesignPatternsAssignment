@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletPool : MonoBehaviour
+public class ObjectPool : MonoBehaviour
 {
-    public static BulletPool instance = null;
+    public static ObjectPool instance = null;
     
     [SerializeField] [Range(0, 1000)] private int _poolSize;
-    [SerializeField] private GameObject _BulletPrefab;
-    private Queue<GameObject> BulletObjectPool;
+    [SerializeField] private GameObject _objectPrefab;
+    private Queue<GameObject> _ObjectPool;
 
     private void Awake()
     {
@@ -30,34 +30,34 @@ public class BulletPool : MonoBehaviour
 
     private void ObjectPoolWarmUp()
     {
-        BulletObjectPool = new Queue<GameObject>();
+        _ObjectPool = new Queue<GameObject>();
 
         for (int i = 0; i < _poolSize; i++)
         {
-            GameObject go = Instantiate(_BulletPrefab, this.transform);
+            GameObject go = Instantiate(_objectPrefab, this.transform);
             go.SetActive(false);
-            BulletObjectPool.Enqueue(go);
+            _ObjectPool.Enqueue(go);
         }
     }
 
     public GameObject ObjectPoolSpawn()
     {
-        if (BulletObjectPool.Count > 0)
+        if (_ObjectPool.Count > 0)
         {
-            GameObject spawn = BulletObjectPool.Dequeue();
+            GameObject spawn = _ObjectPool.Dequeue();
             spawn.SetActive(true);
             return spawn;
         }
 
         else
         {
-            return Instantiate(_BulletPrefab);
+            return Instantiate(_objectPrefab, this.transform);
         }
     }
 
     public void ObjectPoolReturn(GameObject go)
     {
         go.SetActive(false);
-        BulletObjectPool.Enqueue(go);
+        _ObjectPool.Enqueue(go);
     }
 }

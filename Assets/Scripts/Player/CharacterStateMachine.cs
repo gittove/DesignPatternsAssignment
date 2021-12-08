@@ -5,18 +5,20 @@ public class CharacterStateMachine
 {
     public Inputs currentInput;
     public State currentState;
-    
-    private Stack <State> _stateStack;
-    private PlayerController _characterController;
 
-    public CharacterStateMachine(PlayerController playerController)
+    private Stack<State> _stateStack;
+    private PlayerController _characterController;
+    private Rigidbody _characterbody;
+
+    public CharacterStateMachine(PlayerController playerController, Rigidbody playerbody)
     {
         _characterController = playerController;
+        _characterbody = playerbody;
         _stateStack = new Stack<State>();
         currentState = State.Idle;
         _stateStack.Push(currentState);
     }
-    
+
     public Inputs CurrentInput
     {
         set
@@ -32,7 +34,7 @@ public class CharacterStateMachine
     private void OnInputChanged()
     {
         SetNewState(currentInput);
-        _characterController.currentPlayerState = currentState;
+        _characterController.CurrentPlayerState = currentState;
     }
 
     public void SetNewState(Inputs newInput)
@@ -75,8 +77,9 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Crouching: break;
+                    case State.Jumping: break;
                     default:
-                        currentState = State.NotGrounded;
+                        currentState = State.Jumping;
                         _stateStack.Push(currentState);
                         break;
                 }
@@ -98,13 +101,23 @@ public class CharacterStateMachine
                     case State.Idle:
                         break;
                     default:
-                        _stateStack.Pop();
-                        currentState = _stateStack.Peek();
+                        ReturnToPreviousState();
                         Debug.Log("key  released. returning to previous state: " + currentState);
                         break;
                 }
-                
+
                 break;
         }
+    }
+
+    public void ReturnToPreviousState()
+    {
+        if (_stateStack.Count > 1)
+        {
+            _stateStack.Pop();
+        }
+        
+        currentState = _stateStack.Peek();
+        _characterController.CurrentPlayerState = currentState;
     }
 }
