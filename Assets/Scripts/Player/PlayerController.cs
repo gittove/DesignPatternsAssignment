@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private CharacterMovements _characterMovements;
     private PlayerInputs _playerInputs;
     private Rigidbody _rbody;
+    private MeshRenderer _renderer;
     private float[] movementValues;
 
     void Awake()
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
         _shootTimer = 0f;
         _rbody = GetComponent<Rigidbody>();
+        _renderer = GetComponent<MeshRenderer>();
         _stateMachine = new CharacterStateMachine(this);
         _playerInputs = new PlayerInputs();
         _characterMovements = new CharacterMovements(_rbody, movementValues);
@@ -51,11 +53,18 @@ public class PlayerController : MonoBehaviour
     {
         switch (currentPlayerState)
         {
+            case State.Idle: _renderer.material.SetColor("_Color", Color.white);
+                break;
+            case State.Crouching: _renderer.material.SetColor("_Color", Color.yellow);
+                break;
             case State.Walking: _characterMovements.Walk();
+                _renderer.material.SetColor("_Color", Color.cyan);
                 break;
             case State.Running: _characterMovements.Run();
+                _renderer.material.SetColor("_Color", Color.magenta);
                 break;
             case State.Sneaking: _characterMovements.Sneak();
+                _renderer.material.SetColor("_Color", Color.blue);
                 break;
         }
 

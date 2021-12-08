@@ -4,6 +4,11 @@ public struct PlayerInputs
 {
     public Inputs GetKeys(Inputs currentInput)
     {
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            return Inputs.Release;
+        }
+        
         if (Input.GetKey(KeyCode.LeftControl))
         {
             return Inputs.Ctrl;
@@ -21,8 +26,7 @@ public struct PlayerInputs
             return Inputs.Move;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift) || !Input.GetKey(KeyCode.W)
-            && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+        if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
             return Inputs.Release;
         }

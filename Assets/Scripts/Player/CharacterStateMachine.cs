@@ -14,6 +14,7 @@ public class CharacterStateMachine
         _characterController = playerController;
         _stateStack = new Stack<State>();
         currentState = State.Idle;
+        _stateStack.Push(currentState);
     }
     
     public Inputs CurrentInput
@@ -30,7 +31,6 @@ public class CharacterStateMachine
 
     private void OnInputChanged()
     {
-        _stateStack.Push(currentState);
         SetNewState(currentInput);
         _characterController.currentPlayerState = currentState;
     }
@@ -44,9 +44,11 @@ public class CharacterStateMachine
                 {
                     case State.Idle:
                         currentState = State.Walking;
+                        _stateStack.Push(currentState);
                         break;
                     case State.Crouching:
                         currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -56,12 +58,15 @@ public class CharacterStateMachine
                 {
                     case State.Idle:
                         currentState = State.Crouching;
+                        _stateStack.Push(currentState);
                         break;
                     case State.Walking:
                         currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                     case State.Running:
                         currentState = State.Sneaking;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -72,6 +77,7 @@ public class CharacterStateMachine
                     case State.Crouching: break;
                     default:
                         currentState = State.NotGrounded;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -81,6 +87,7 @@ public class CharacterStateMachine
                 {
                     case State.Walking:
                         currentState = State.Running;
+                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -91,9 +98,12 @@ public class CharacterStateMachine
                     case State.Idle:
                         break;
                     default:
-                        currentState = _stateStack.Pop();
+                        _stateStack.Pop();
+                        currentState = _stateStack.Peek();
+                        Debug.Log("key  released. returning to previous state: " + currentState);
                         break;
                 }
+                
                 break;
         }
     }
