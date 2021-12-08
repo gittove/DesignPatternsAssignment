@@ -31,6 +31,7 @@ public class CharacterStateMachine
 
     private void OnInputChanged()
     {
+        _stateStack.Push(currentState);
         SetNewState(currentInput);
         _characterController.currentState = currentState;
     }
@@ -44,11 +45,9 @@ public class CharacterStateMachine
                 {
                     case State.Idle:
                         currentState = State.Walking;
-                        _stateStack.Push(currentState);
                         break;
                     case State.Crouching:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -58,15 +57,12 @@ public class CharacterStateMachine
                 {
                     case State.Idle:
                         currentState = State.Crouching;
-                        _stateStack.Push(currentState);
                         break;
                     case State.Walking:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
                         break;
                     case State.Running:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -77,7 +73,6 @@ public class CharacterStateMachine
                     case State.Crouching: break;
                     default:
                         currentState = State.NotGrounded;
-                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -87,7 +82,6 @@ public class CharacterStateMachine
                 {
                     case State.Walking:
                         currentState = State.Running;
-                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -98,8 +92,7 @@ public class CharacterStateMachine
                     case State.Idle:
                         break;
                     default:
-                        _stateStack.Pop();
-                        currentState = _stateStack.Peek();
+                        currentState = _stateStack.Pop();
                         break;
                 }
                 break;
