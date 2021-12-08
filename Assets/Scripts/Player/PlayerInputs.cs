@@ -8,19 +8,19 @@ public struct PlayerInputs
         {
             return Inputs.Ctrl;
         }
-        
+
         // todo space => jump
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
             return Inputs.Shift;
         }
-        
+
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             return Inputs.Move;
         }
-        
+
         if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift) || !Input.GetKey(KeyCode.W)
             && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
@@ -29,6 +29,19 @@ public struct PlayerInputs
 
         return currentInput;
     }
+
+    public bool GetClick()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            return true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            return false;
+        }
+
+        return false;
+    }
 }
-
-

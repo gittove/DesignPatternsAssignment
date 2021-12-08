@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public State currentState;
-    
+    public State currentPlayerState;
+
     [SerializeField] [Range(0, 10)] private float _walkAcceleration;
     [SerializeField] [Range(0, 10)] private float _runningAcceleration;
     [SerializeField] [Range(0, 10)] private float _sneakAcceleration;
@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float _maxRunningSpeed;
     [SerializeField] [Range(0, 20)] private float _maxSneakingSpeed;
     [SerializeField] [Range(0, 20)] private float _maxJumpHeight;
-    
+
+    private float _shootTimer;
+    private bool _isShooting;
     private CharacterStateMachine _stateMachine;
     private CharacterMovements _characterMovements;
     private PlayerInputs _playerInputs;
@@ -30,7 +32,8 @@ public class PlayerController : MonoBehaviour
             _walkAcceleration, _maxWalkSpeed, _runningAcceleration, _maxRunningSpeed, _sneakAcceleration,
             _maxSneakingSpeed, _jumpAcceleration, _maxJumpHeight
         };
-        
+
+        _shootTimer = 0f;
         _rbody = GetComponent<Rigidbody>();
         _stateMachine = new CharacterStateMachine(this);
         _playerInputs = new PlayerInputs();
@@ -40,11 +43,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _stateMachine.CurrentInput = _playerInputs.GetKeys(_stateMachine.currentInput);
+        _isShooting = _playerInputs.GetClick();
+        _shootTimer += Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        switch (currentState)
+        switch (currentPlayerState)
         {
             case State.Walking: _characterMovements.Walk();
                 break;
@@ -53,6 +58,12 @@ public class PlayerController : MonoBehaviour
             case State.Sneaking: _characterMovements.Sneak();
                 break;
         }
-        Debug.Log("Current state: " + currentState);
+
+        if (_isShooting && _shootTimer > 0.3f)
+        {
+            GameObject go = BulletPool.instance.ObjectPoolSpawn();
+            go.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z + 1);
+            _shootTimer = 0f;
+        }
     }
 }

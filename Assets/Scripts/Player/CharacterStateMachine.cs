@@ -14,7 +14,6 @@ public class CharacterStateMachine
         _characterController = playerController;
         _stateStack = new Stack<State>();
         currentState = State.Idle;
-        _stateStack.Push(currentState);
     }
     
     public Inputs CurrentInput
@@ -33,7 +32,7 @@ public class CharacterStateMachine
     {
         _stateStack.Push(currentState);
         SetNewState(currentInput);
-        _characterController.currentState = currentState;
+        _characterController.currentPlayerState = currentState;
     }
 
     public void SetNewState(Inputs newInput)
