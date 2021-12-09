@@ -6,7 +6,7 @@ public enum State
     Crouching,
     Sneaking,
     Jumping,
-    Running,
+    Running
 }
 
 public enum Inputs

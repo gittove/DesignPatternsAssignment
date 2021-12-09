@@ -21,9 +21,9 @@ public class CharacterStateMachine
     {
         set
         {
-            if (value != this.currentInput)
+            if (value != currentInput)
             {
-                this.currentInput = value;
+                currentInput = value;
                 OnInputChanged();
             }
         }

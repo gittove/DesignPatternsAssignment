@@ -36,9 +36,9 @@ public class PlayerController : MonoBehaviour
     {
         set
         {
-            if (value != this._currentPlayerState)
+            if (value != _currentPlayerState)
             {
-                this._currentPlayerState = value;
+                _currentPlayerState = value;
                 CheckForJumpingState();
             }
         }
