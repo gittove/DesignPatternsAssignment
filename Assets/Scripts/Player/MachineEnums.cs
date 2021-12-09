@@ -15,5 +15,6 @@ public enum Inputs
     Move,
     Space,
     Shift,
-    Release
+    Release,
+    ReleaseInAir
 }

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             if (value != this._currentPlayerState)
             {
                 this._currentPlayerState = value;
-                OnStateChanged();
+                CheckForJumpingState();
             }
         }
     }
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         _rbody = GetComponent<Rigidbody>();
         _renderer = GetComponent<MeshRenderer>();
         _collider = GetComponent<CapsuleCollider>();
-        _stateMachine = new CharacterStateMachine(this, _rbody);
+        _stateMachine = new CharacterStateMachine(this);
         _playerInputs = new PlayerInputs();
         _characterMovements = new CharacterMovements(_rbody, movementValues);
     }
@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
         _isShooting = _playerInputs.GetClick();
         _shootTimer += Time.deltaTime;
 
-        
         if (_justJumped)
         {
             _groundCheckTimer += Time.deltaTime;
@@ -110,36 +109,26 @@ public class PlayerController : MonoBehaviour
         }
         if(!_justJumped)
             GroundCheck();
-        
     }
 
+    void CheckForJumpingState()
+    {
+        if (_currentPlayerState == State.Jumping)
+        {
+            _renderer.material.SetColor("_Color",Color.red);
+            _characterMovements.Jump();
+            _justJumped = true;
+        }
+    }
+    
     private void GroundCheck()
     {
-        Debug.DrawLine(transform.position, transform.position + Vector3.down * _collider.height * 0.5f, Color.black);
-
         if (Physics.Raycast(transform.position, Vector3.down, _collider.height * 0.5f, _groundLayers))
         {
             if (_currentPlayerState == State.Jumping)
             {
-                Debug.Log("bonk");
                 _stateMachine.ReturnToPreviousState();
             }
-        }
-    }
-
-
-    
-
-    void OnStateChanged()
-    {
-        if (_currentPlayerState == State.Jumping)
-        {
-            Debug.Log("boing");
-            _renderer.material.SetColor("_Color",Color.red);
-            _characterMovements.Jump();
-            _justJumped = true;
-            Invoke("asdf", 0.1f);
-            
         }
     }
 }

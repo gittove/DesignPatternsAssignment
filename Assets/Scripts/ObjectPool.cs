@@ -45,6 +45,7 @@ public class ObjectPool : MonoBehaviour
         if (_ObjectPool.Count > 0)
         {
             GameObject spawn = _ObjectPool.Dequeue();
+            Debug.Log("Dequeued");
             spawn.SetActive(true);
             return spawn;
         }

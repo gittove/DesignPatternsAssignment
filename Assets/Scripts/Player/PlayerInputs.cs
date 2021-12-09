@@ -4,7 +4,12 @@ public struct PlayerInputs
 {
     public Inputs GetKeys(Inputs currentInput, State currentState)
     {
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift))
+        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift)) && currentState == State.Jumping)
+        {
+            return Inputs.ReleaseInAir;
+        }
+        
+        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift)) && currentState != State.Jumping)
         {
             return Inputs.Release;
         }
@@ -29,10 +34,10 @@ public struct PlayerInputs
             return Inputs.Move;
         }
 
-        if ((!Input.GetKey(KeyCode.W) && 
-             !Input.GetKey(KeyCode.A) && 
-             !Input.GetKey(KeyCode.S) && 
-             !Input.GetKey(KeyCode.D)) 
+        if (!Input.GetKey(KeyCode.W) && 
+            !Input.GetKey(KeyCode.A) && 
+            !Input.GetKey(KeyCode.S) && 
+            !Input.GetKey(KeyCode.D) 
             && currentState != State.Jumping)
         {
             return Inputs.Release;

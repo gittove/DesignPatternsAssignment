@@ -8,12 +8,10 @@ public class CharacterStateMachine
 
     private Stack<State> _stateStack;
     private PlayerController _characterController;
-    private Rigidbody _characterbody;
 
-    public CharacterStateMachine(PlayerController playerController, Rigidbody playerbody)
+    public CharacterStateMachine(PlayerController playerController)
     {
         _characterController = playerController;
-        _characterbody = playerbody;
         _stateStack = new Stack<State>();
         currentState = State.Idle;
         _stateStack.Push(currentState);
@@ -48,6 +46,10 @@ public class CharacterStateMachine
                         currentState = State.Walking;
                         _stateStack.Push(currentState);
                         break;
+                    case State.Running:
+                        currentState = State.Walking;
+                        _stateStack.Push(currentState);
+                        break;
                     case State.Crouching:
                         currentState = State.Sneaking;
                         _stateStack.Push(currentState);
@@ -58,6 +60,8 @@ public class CharacterStateMachine
             case Inputs.Ctrl:
                 switch (currentState)
                 {
+                    case State.Jumping:
+                        break;
                     case State.Idle:
                         currentState = State.Crouching;
                         _stateStack.Push(currentState);
@@ -88,6 +92,8 @@ public class CharacterStateMachine
             case Inputs.Shift:
                 switch (currentState)
                 {
+                    case State.Jumping:
+                        break;
                     case State.Walking:
                         currentState = State.Running;
                         _stateStack.Push(currentState);
@@ -103,6 +109,17 @@ public class CharacterStateMachine
                     default:
                         ReturnToPreviousState();
                         Debug.Log("key  released. returning to previous state: " + currentState);
+                        break;
+                }
+
+                break;
+            case Inputs.ReleaseInAir:
+                switch (currentState)
+                { 
+                    default: 
+                        ReturnToPreviousState(); 
+                        ReturnToPreviousState(); 
+                        Debug.Log("key  released mid air. returning to previous state: " + currentState);
                         break;
                 }
 
