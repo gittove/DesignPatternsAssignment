@@ -1,19 +1,14 @@
 using UnityEngine;
 
-public struct PlayerInputs
+public struct PlayerInputHandler
 {
-    public Inputs GetKeys(Inputs currentInput, State currentState)
+    public Inputs GetKeys(Inputs currentInput)
     {
-        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift)) && currentState == State.Jumping)
-        {
-            return Inputs.ReleaseInAir;
-        }
-        
-        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift)) && currentState != State.Jumping)
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift))
         {
             return Inputs.Release;
         }
-        
+
         if (Input.GetKey(KeyCode.LeftControl))
         {
             return Inputs.Ctrl;
@@ -43,6 +38,26 @@ public struct PlayerInputs
             return Inputs.Release;
         }
 
+        return currentInput;
+    }
+
+    public Inputs GetInputAfterLanding(Inputs currentInput)
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            return Inputs.Ctrl;
+        }
+        
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            return Inputs.Move;
+        }
+        
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            return Inputs.Shift;
+        }
+        
         return currentInput;
     }
 

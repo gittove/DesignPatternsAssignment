@@ -7,9 +7,9 @@
     <list default="true" id="aa6fbbef-0c8e-4892-b2be-d19e51d4f5eb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DesignPatternsAssignment/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/CharacterStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/MachineEnums.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/MachineEnums.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputHandler.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +32,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0463b2ef957545c0a51b42f372cd4fbb29fa00/b1/2e4c040b/Stack`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d3a4cbacdae45b384e0e80b376938e13600/e0/e47ef34b/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerInputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/CharacterMovements.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/ca496b8c93454b2f9b9924292c19379f13b800/3d/a3972897/ReflectionProbe.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -97,7 +97,7 @@
       <workItem from="1638960021426" duration="638000" />
       <workItem from="1638965753864" duration="17644000" />
       <workItem from="1639041419210" duration="6855000" />
-      <workItem from="1639060559835" duration="2728000" />
+      <workItem from="1639060559835" duration="5642000" />
     </task>
     <servers />
   </component>

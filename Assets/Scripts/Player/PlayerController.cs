@@ -21,10 +21,11 @@ public class PlayerController : MonoBehaviour
     private float _groundCheckDelay;
     private bool _isShooting;
     private bool _justJumped;
+    private bool _isGrounded;
     private State _currentPlayerState;
     private CharacterStateMachine _stateMachine;
     private CharacterMovements _characterMovements;
-    private PlayerInputs _playerInputs;
+    private PlayerInputHandler _playerInputHandler;
     private Rigidbody _rbody;
     private MeshRenderer _renderer;
     private CapsuleCollider _collider;
@@ -60,14 +61,14 @@ public class PlayerController : MonoBehaviour
         _renderer = GetComponent<MeshRenderer>();
         _collider = GetComponent<CapsuleCollider>();
         _stateMachine = new CharacterStateMachine(this);
-        _playerInputs = new PlayerInputs();
+        _playerInputHandler = new PlayerInputHandler();
         _characterMovements = new CharacterMovements(_rbody, movementValues);
     }
 
     private void Update()
     {
-        _stateMachine.CurrentInput = _playerInputs.GetKeys(_stateMachine.currentInput, _currentPlayerState);
-        _isShooting = _playerInputs.GetClick();
+        _stateMachine.CurrentInput = _playerInputHandler.GetKeys(_stateMachine.currentInput);
+        _isShooting = _playerInputHandler.GetClick();
         _shootTimer += Time.deltaTime;
 
         if (_justJumped)

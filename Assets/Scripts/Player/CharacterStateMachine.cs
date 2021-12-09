@@ -42,6 +42,8 @@ public class CharacterStateMachine
             case Inputs.Move:
                 switch (currentState)
                 {
+                    case State.Jumping:
+                        break;
                     case State.Idle:
                         currentState = State.Walking;
                         _stateStack.Push(currentState);
@@ -80,8 +82,10 @@ public class CharacterStateMachine
             case Inputs.Space:
                 switch (currentState)
                 {
-                    case State.Crouching: break;
-                    case State.Jumping: break;
+                    case State.Crouching: 
+                        break;
+                    case State.Jumping: 
+                        break;
                     default:
                         currentState = State.Jumping;
                         _stateStack.Push(currentState);
@@ -104,6 +108,8 @@ public class CharacterStateMachine
             case Inputs.Release:
                 switch (currentState)
                 {
+                    case State.Jumping:
+                        break;
                     case State.Idle:
                         break;
                     default:
@@ -113,6 +119,7 @@ public class CharacterStateMachine
                 }
 
                 break;
+            /*
             case Inputs.ReleaseInAir:
                 switch (currentState)
                 { 
@@ -123,7 +130,7 @@ public class CharacterStateMachine
                         break;
                 }
 
-                break;
+                break; */
         }
     }
 
