@@ -2,7 +2,7 @@ using UnityEngine;
 
 public struct PlayerInputHandler
 {
-    public Inputs GetKeys(Inputs currentInput)
+    public Inputs GetKeys(Inputs currentInput, State currentState)
     {
         if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.LeftShift))
         {

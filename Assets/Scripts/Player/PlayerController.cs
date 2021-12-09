@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _stateMachine.CurrentInput = _playerInputHandler.GetKeys(_stateMachine.currentInput);
+        _stateMachine.CurrentInput = _playerInputHandler.GetKeys(_stateMachine.currentInput, _currentPlayerState);
         _isShooting = _playerInputHandler.GetClick();
         _shootTimer += Time.deltaTime;
 
