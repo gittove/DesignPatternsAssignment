@@ -49,8 +49,8 @@ public class CharacterStateMachine
                         _stateStack.Push(currentState);
                         break;
                     case State.Running:
-                        currentState = State.Walking;
-                        _stateStack.Push(currentState);
+                        TryPopStack();
+                        ReturnToPreviousState();
                         break;
                     case State.Crouching:
                         currentState = State.Sneaking;
@@ -63,6 +63,7 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
+                        _stateStack.Push(State.Crouching);
                         break;
                     case State.Idle:
                         currentState = State.Crouching;
@@ -88,7 +89,6 @@ public class CharacterStateMachine
                         break;
                     default:
                         currentState = State.Jumping;
-                        _stateStack.Push(currentState);
                         break;
                 }
 
@@ -97,6 +97,7 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
+                        _stateStack.Push(State.Running);
                         break;
                     case State.Walking:
                         currentState = State.Running;
@@ -109,39 +110,34 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
+                        Debug.Log("state on top before popping:" + _stateStack.Peek());
+                        TryPopStack();
+                        Debug.Log("stack popped, state on top: " + _stateStack.Peek());
                         break;
                     case State.Idle:
                         break;
                     default:
+                        TryPopStack();
                         ReturnToPreviousState();
                         Debug.Log("key  released. returning to previous state: " + currentState);
                         break;
                 }
 
                 break;
-            /*
-            case Inputs.ReleaseInAir:
-                switch (currentState)
-                { 
-                    default: 
-                        ReturnToPreviousState(); 
-                        ReturnToPreviousState(); 
-                        Debug.Log("key  released mid air. returning to previous state: " + currentState);
-                        break;
-                }
-
-                break; */
         }
     }
 
     public void ReturnToPreviousState()
     {
+        currentState = _stateStack.Peek();
+        _characterController.CurrentPlayerState = currentState;
+    }
+
+    public void TryPopStack()
+    {
         if (_stateStack.Count > 1)
         {
             _stateStack.Pop();
         }
-        
-        currentState = _stateStack.Peek();
-        _characterController.CurrentPlayerState = currentState;
     }
 }

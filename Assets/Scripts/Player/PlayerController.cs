@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] [Range(0, 20)] private float _maxRunningSpeed;
     [SerializeField] [Range(0, 20)] private float _maxSneakingSpeed;
 
-    private float _shootTimer;
-    private float _groundCheckTimer;
+    private float _timeToShoot;
+    private float _timeToGroundCheck;
     private float _groundCheckDelay;
     private bool _isShooting;
     private bool _justJumped;
@@ -53,8 +53,8 @@ public class PlayerController : MonoBehaviour
             _maxSneakingSpeed, _jumpAcceleration
         };
 
-        _shootTimer = 0f;
-        _groundCheckTimer = 0f;
+        _timeToShoot = 0f;
+        _timeToGroundCheck = 0f;
         _groundCheckDelay = 0.1f;
         _justJumped = false;
         _rbody = GetComponent<Rigidbody>();
@@ -69,15 +69,15 @@ public class PlayerController : MonoBehaviour
     {
         _stateMachine.CurrentInput = _playerInputHandler.GetKeys(_stateMachine.currentInput, _currentPlayerState);
         _isShooting = _playerInputHandler.GetClick();
-        _shootTimer += Time.deltaTime;
+        _timeToShoot += Time.deltaTime;
 
         if (_justJumped)
         {
-            _groundCheckTimer += Time.deltaTime;
-            if (_groundCheckTimer > _groundCheckDelay)
+            _timeToGroundCheck += Time.deltaTime;
+            if (_timeToGroundCheck > _groundCheckDelay)
             {
                 _justJumped = false;
-                _groundCheckTimer = 0.0f;
+                _timeToGroundCheck = 0.0f;
             }
         }
 
@@ -102,11 +102,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        if (_isShooting && _shootTimer > 0.3f)
+        if (_isShooting && _timeToShoot > 0.3f)
         {
             GameObject go = ObjectPool.instance.ObjectPoolSpawn();
             go.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z + 1);
-            _shootTimer = 0f;
+            _timeToShoot = 0f;
         }
         if(!_justJumped)
             GroundCheck();
