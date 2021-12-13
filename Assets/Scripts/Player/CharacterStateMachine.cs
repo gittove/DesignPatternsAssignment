@@ -46,7 +46,7 @@ public class CharacterStateMachine
                         break;
                     case State.Idle:
                         currentState = State.Walking;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                     case State.Running:
                         TryPopStack();
@@ -54,7 +54,7 @@ public class CharacterStateMachine
                         break;
                     case State.Crouching:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                 }
 
@@ -63,19 +63,19 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
-                        _stateStack.Push(State.Crouching);
+                        PushState(State.Crouching);
                         break;
                     case State.Idle:
                         currentState = State.Crouching;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                     case State.Walking:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                     case State.Running:
                         currentState = State.Sneaking;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                 }
 
@@ -97,11 +97,11 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
-                        _stateStack.Push(State.Running);
+                        PushState(State.Running);
                         break;
                     case State.Walking:
                         currentState = State.Running;
-                        _stateStack.Push(currentState);
+                        PushState(currentState);
                         break;
                 }
 
@@ -110,16 +110,13 @@ public class CharacterStateMachine
                 switch (currentState)
                 {
                     case State.Jumping:
-                        Debug.Log("state on top before popping:" + _stateStack.Peek());
                         TryPopStack();
-                        Debug.Log("stack popped, state on top: " + _stateStack.Peek());
                         break;
                     case State.Idle:
                         break;
                     default:
                         TryPopStack();
                         ReturnToPreviousState();
-                        Debug.Log("key  released. returning to previous state: " + currentState);
                         break;
                 }
 
@@ -139,5 +136,15 @@ public class CharacterStateMachine
         {
             _stateStack.Pop();
         }
+    }
+
+    public void PushState(State stateToStack)
+    {
+        if (stateToStack == _stateStack.Peek())
+        {
+            return;
+        }
+
+        _stateStack.Push(stateToStack);
     }
 }
