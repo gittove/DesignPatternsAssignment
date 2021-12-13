@@ -11,8 +11,8 @@ Making character movement and shooting using design patterns.
 #### Hold ctrl and WASD - sneak
 You cannot rotate the player, unfortunately:(
 
-##Pattern 1: Singleton
-####ObjectPool.cs
+## Pattern 1: Singleton
+#### ObjectPool.cs
 The object pool contains the player's bullets, which means there only 
 should be one instance of the pool.
 
